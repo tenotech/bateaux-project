@@ -17,12 +17,16 @@ import QuantityInput from '../components/NumberInput';
 import dayjs from "dayjs";
 
 import { getAvailableBateau0, getBateau } from '../Services/bateaux-services.js';
+import ConfirmationModal from '../modal/confirmation';
 
 export default function Booking() {
   const dispatch = useDispatch();
   //const [formData, setFormData] = useState({});
   const [numbers, setNumbers] = useState(1);
   const [date, setDate] = useState(new Date());
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading0, setLoading0] = useState(false);
 
   const { currentUser, loading, error } = useSelector((state) => state.user);
 
@@ -34,65 +38,30 @@ export default function Booking() {
     setDate(value.format('DD-MM-YYYY'));
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     //to do
-  //     // first fetch bateaux and chof anahi bateau bech t7at fih selon nombre
-  //     // men ba3d el bateau haka 7at fih les reservation
+  const handleSubmit = () => {
+    // Display the confirmation modal
+    setIsModalOpen(true);
+  };
 
-      
+  const handleConfirmReservation = () => {
+    // Handle the form submission here or make an API request
+    // Set loading state to show a loading message
+    setLoading0(true);
 
-  //     //dispatch(updateUserStart());
-  //     for (let i = 1; i <= numbers; i++) {
-  //       const formData = {date: date, bateau: "bateau_1", by:currentUser.email}
-  //       const res = await fetch('/api/booking/', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(formData),
-  //       });
-  //       const data = await res.json();
-  //     }
-  //     // if (data.success === false) {
-  //     //   dispatch(updateUserFailure(data));
-  //     //   return;
-  //     // }
-  //     // dispatch(updateUserSuccess(data));
-  //     //setBookingSuccess(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //     //dispatch(updateUserFailure(error));
-  //   }
-  // };
+    // Simulate an API request
+    setTimeout(() => {
+      setLoading0(false);
+      setIsModalOpen(false);
+      // Continue with your form submission logic
+    }, 2000);
+  };
 
-  // async function handleSubmit() {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await fetch('/api/bateau/available-room', {
-  //       method: 'GET', // Use the GET method
-  //       headers: {
-  //         // Include headers as needed (e.g., authorization)
-  //       },
-  //     });
-  
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  
-  //     const data = await response.json(); // Parse the response as JSON
-  
-  //     // Handle the data received from the server
-  //     console.log(data);
-  //   } catch (error) {
-  //     // Handle any errors, such as network errors or failed responses
-  //     console.error('Fetch error:', error);
-  //   }
-  // }
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmitold = async (e) => {
     e.preventDefault();
     const formData = {day: date, reservations: numbers}
     try {
@@ -161,10 +130,23 @@ export default function Booking() {
             onSelectChange={handleNumberChange}>
         </QuantityInput>
         
-        <button onClick={handleSubmit} className='bg-slate-700 text-white p-3 mt-10 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
-          {loading ? 'Loading...' : 'Réserver'}
+        <button onClick={handleSubmit} type='button' className='bg-slate-700 text-white p-3 mt-10 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+          {loading0 ? 'Loading...' : 'Réserver'}
         </button>
       </form>
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-600 bg-opacity-70">
+          <div className="w-96 bg-white p-4 rounded-lg shadow-lg">
+            <ConfirmationModal
+              isOpen={isModalOpen}
+              onConfirm={handleConfirmReservation}
+              onClose={handleCloseModal}
+              date={date}
+              numbers={numbers}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
