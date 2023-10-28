@@ -1,0 +1,7 @@
+@media print {
+    .printable-ticket {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      border: 1px solid #000;
+    }
+  }

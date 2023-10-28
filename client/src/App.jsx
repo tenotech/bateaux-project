@@ -8,6 +8,7 @@ import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import Checking from './pages/Checking';
 import Booking from './pages/Booking';
+import Success from './pages/Success';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/checking' element={<Checking />} />
           <Route path='/booking' element={<Booking />} />
+          <Route path='/success' element={<Success />} />
         </Route>
       </Routes>
     </BrowserRouter>

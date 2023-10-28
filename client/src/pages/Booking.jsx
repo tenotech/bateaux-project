@@ -1,25 +1,18 @@
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  updateUserStart,
-  updateUserSuccess,
-  updateUserFailure,
-  deleteUserStart,
-  deleteUserSuccess,
-  deleteUserFailure,
-  signOut,
-} from '../redux/user/userSlice';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import QuantityInput from '../components/NumberInput';
 import dayjs from "dayjs";
+import { useNavigate } from 'react-router-dom';
 
 import { getAvailableBateau0, getBateau } from '../Services/bateaux-services.js';
 import ConfirmationModal from '../modal/confirmation';
 
 export default function Booking() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //const [formData, setFormData] = useState({});
   const [numbers, setNumbers] = useState(1);
@@ -27,6 +20,7 @@ export default function Booking() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading0, setLoading0] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const { currentUser, loading, error } = useSelector((state) => state.user);
 
@@ -35,10 +29,11 @@ export default function Booking() {
   };
 
   const handleDateChange = (value) => {
-    setDate(value.format('DD-MM-YYYY'));
+    setDate(value);
   };
 
   const handleSubmit = () => {
+    //if()
     // Display the confirmation modal
     setIsModalOpen(true);
   };
@@ -48,12 +43,14 @@ export default function Booking() {
     // Set loading state to show a loading message
     setLoading0(true);
 
+
     // Simulate an API request
     setTimeout(() => {
       setLoading0(false);
       setIsModalOpen(false);
       // Continue with your form submission logic
     }, 2000);
+    navigate(`/success?d=${dayjs(date).format('DD-MM-YYYY')}&n=${numbers}&b=bateau_1`);
   };
 
   const handleCloseModal = () => {
@@ -121,7 +118,8 @@ export default function Booking() {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker className='w-full' 
                     label="Sélectionnez une date"
-                    onChange={handleDateChange} />
+                    onChange={handleDateChange}
+                    defaultValue={dayjs(date)} />
         </LocalizationProvider>
         <label>
             Nombre de places:
@@ -134,17 +132,16 @@ export default function Booking() {
           {loading0 ? 'Loading...' : 'Réserver'}
         </button>
       </form>
+      <p className='text-red-700 mt-5'>{isError && 'Quelque chose s\'est mal passé!'}</p>
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-600 bg-opacity-70">
-          <div className="w-96 bg-white p-4 rounded-lg shadow-lg">
             <ConfirmationModal
               isOpen={isModalOpen}
               onConfirm={handleConfirmReservation}
               onClose={handleCloseModal}
-              date={date}
+              date={dayjs(date).format('DD-MM-YYYY')}
               numbers={numbers}
             />
-          </div>
         </div>
       )}
     </div>
