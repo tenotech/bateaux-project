@@ -13,9 +13,6 @@ export default function Header() {
           <Link to='/'>
             <li>Home</li>
           </Link>
-          <Link to='/about'>
-            <li>About</li>
-          </Link>
           <Link to='/profile'>
             {currentUser ? (
               <li className='font-bold'>{currentUser.name}</li>
