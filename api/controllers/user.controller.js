@@ -8,6 +8,15 @@ export const test = (req, res) => {
   });
 };
 
+export const getUser = async (req, res, next) => {
+  console.log('get user');
+  try{
+    res.status(200).json('hello');
+  } catch (error) {
+    next(error);
+  }
+};
+
 // update user
 
 export const updateUser = async (req, res, next) => {
@@ -27,7 +36,6 @@ export const updateUser = async (req, res, next) => {
           surname: req.body.surname,
           email: req.body.email,
           password: req.body.password,
-          profilePicture: req.body.profilePicture,
         },
       },
       { new: true }

@@ -1,28 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <div className='px-4 py-12 max-w-2xl mx-auto'>
-      <h1 className='text-3xl font-bold  mb-4 text-slate-800'>
-        Welcome to my Auth App!
+      <h1 className='text-3xl font-bold text-center mb-4 text-slate-800'>
+        Bateaux Pirates Djerba
       </h1>
-      <p className='mb-4 text-slate-700'>
-        This is a full-stack web application built with the MERN (MongoDB,
-        Express, React, Node.js) stack. It includes authentication features that
-        allow users to sign up, log in, and log out, and provides access to
-        protected routes only for authenticated users.
+      <p className='mb-4 text-slate-700 text-center'>
+        Site officiel de réservation.
       </p>
-      <p className='mb-4 text-slate-700'>
-        The front-end of the application is built with React and uses React
-        Router for client-side routing. The back-end is built with Node.js and
-        Express, and uses MongoDB as the database. Authentication is implemented
-        using JSON Web Tokens (JWT).
-      </p>
-      <p className='mb-4 text-slate-700'>
-        This application is intended as a starting point for building full-stack
-        web applications with authentication using the MERN stack. Feel free to
-        use it as a template for your own projects!
-      </p>
+      {currentUser ? (
+          <div className='flex gap-5 mt-10 justify-center'>
+            <Link to='/booking'>
+              <span className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>Réservation</span>
+            </Link>
+            <Link to='/checking'>
+              <span className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>Vérification</span>
+            </Link>
+          </div>
+        ) : (
+          <div className='p-3 max-w-lg mx-auto text-center'>
+            <Link to='/sign-in'>
+              <span className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>Se connecter</span>
+            </Link>
+        </div>
+      )}
+      
     </div>
   );
 }
