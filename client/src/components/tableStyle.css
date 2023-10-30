@@ -1,0 +1,95 @@
+.styled-table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    font-size: 1.3rem;
+    color: #333;
+  }
+  
+  tr {
+    border-radius: 4px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .styled-table thead tr {
+    background-color: #0370C5;
+    color: #ffffff;
+  }
+  
+  .table-name {
+    text-align: left;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+      padding: 12px 15px;
+  }
+  
+  .th-title{
+    min-width: 150px;
+  }
+  
+  .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #0370C5;
+  }
+  
+  .is-completed{
+    padding: 0;
+  }
+  
+  .green-row {
+    background-color: #5ec461; /* or any green color you prefer */
+  }
+  
+  .red-row {
+    background-color: #df5858; /* or any green color you prefer */
+  }
+  
+  .status{
+    width: 0px;
+  }
+  
+  .status-title{
+    background-color: #fff; /* or any green color you prefer */
+  }
+  
+  .return-btn{
+      font-size: 1.3rem;
+      background: #333;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 2px;
+      cursor: pointer;
+      width: 200px;
+      margin-bottom: 100px;
+  }
+  
+  .reserved-td {
+    font-weight: bold;
+  }
+  
+  .verification p {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .verification h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #333;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
